@@ -11,6 +11,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./guild-lottery
+
     strategy:
       matrix:
         node-version: [18.x]
@@ -24,7 +28,5 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm ci
-        working-directory: ./guild-lottery
       - name: Run Lottery
         run: npm run lottery --if-present
-        working-directory: ./guild-lottery
