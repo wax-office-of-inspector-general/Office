@@ -19,11 +19,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-          working-directory: ./guild-lottery
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: 'npm'
-      - run: npm ci
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
         working-directory: ./guild-lottery
-      - run: npm run lottery --if-present
+      - name: Run Lottery
+        run: npm run lottery --if-present
         working-directory: ./guild-lottery
