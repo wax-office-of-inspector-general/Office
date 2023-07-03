@@ -1,4 +1,3 @@
-const core = require('@actions/core');
 const { fetchAll, shuffleArr } = require('./util.js');
 
 fetchAll()
@@ -22,6 +21,5 @@ fetchAll()
       IGsWithGuilds[index % IGsWithGuilds.length].guilds.push(guild);
     });
     
-    core.info(IGsWithGuilds);
-    console.table(IGsWithGuilds)
+    console.info(IGsWithGuilds);
   });

@@ -19,7 +19,6 @@
   "author": "rakeden",
   "license": "UNLICENSED",
   "dependencies": {
-    "@actions/core": "^1.10.0",
     "@wharfkit/antelope": "^0.7.1"
   }
 }
