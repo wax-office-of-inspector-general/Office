@@ -1,0 +1,24 @@
+{
+  "name": "guild-lottery",
+  "version": "0.0.1",
+  "description": "Guild Lottery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/wax-office-of-inspector-general/office"
+  },
+  "keywords": [
+    "WAX",
+    "Blockchain",
+    "OIG"
+  ],
+  "author": "rakeden",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@wharfkit/antelope": "^0.7.1"
+  }
+}
