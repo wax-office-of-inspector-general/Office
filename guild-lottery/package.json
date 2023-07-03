@@ -4,6 +4,7 @@
   "description": "Guild Lottery",
   "main": "index.js",
   "scripts": {
+    "lottery": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
