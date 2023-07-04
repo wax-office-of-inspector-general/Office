@@ -23,7 +23,7 @@ jobs:
           width: 1440
 
   upload:
-    name: Upload Artifacts
+    name: Commit Screenshots
     runs-on: ubuntu-latest
     needs: [screenshots]
     
@@ -39,6 +39,15 @@ jobs:
           
       - name: Create Snapshot Directory
         run: mkdir -p data/benchmarks/${{ env.NOW }}
+
+      - name: Download math result for job 1
+        uses: actions/download-artifact@v3
+        with:
+          name: mainnet-reliability-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+      
+      - name: Debug structure of downloaded files
+        run: ls -R
         
       - name: Add Snapshots to Repository
         run: |
