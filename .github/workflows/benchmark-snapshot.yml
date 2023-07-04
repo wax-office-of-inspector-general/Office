@@ -21,6 +21,51 @@ jobs:
           full-page: true
           delay: 20
           width: 1440
+          
+      - name: Snapshot Testnet Reliability
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/reliability#networkId=16&timeframeId=8&sort=rank&sortDir=asc
+          destination: testnet-reliability-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Mainnet Performance
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/benchmarks#networkId=11&timeframeId=8&outliers=0
+          destination: mainnet-performance-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Testnet Performance
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/benchmarks#networkId=16&timeframeId=8&outliers=0
+          destination: testnet-performance-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Mainnet Validationcore
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://wax.validationcore.io/stats/guild
+          destination: mainnet-validationcore-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Testnet Validationcore
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://wax-test.validationcore.io/stats/guild
+          destination: testnet-validationcore-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
 
   upload:
     name: Commit Screenshots
@@ -40,14 +85,41 @@ jobs:
       - name: Create Snapshot Directory
         run: mkdir -p data/benchmarks/${{ env.NOW }}
 
-      - name: Download math result for job 1
+      - name: Download mainnet-reliability artifact
         uses: actions/download-artifact@v3
         with:
           name: mainnet-reliability-${{ env.NOW }}
           path: data/benchmarks/${{ env.NOW }}
-      
-      - name: Debug structure of downloaded files
-        run: ls -R
+          
+      - name: Download testnet-reliability artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: testnet-reliability-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download mainnet-performance artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: mainnet-performance-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download testnet-performance artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: testnet-performance-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download mainnet-validationcore artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: mainnet-validationcore-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download testnet-validationcore artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: testnet-validationcore-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
         
       - name: Git add Files
         run: |
