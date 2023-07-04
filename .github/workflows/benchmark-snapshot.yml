@@ -3,25 +3,16 @@ name: Benchmark Snapshot
 on: workflow_dispatch
 
 jobs:
-  prepare:
-    name: Prepare Task
-    runs-on: ubuntu-latest
-    
-    steps: 
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: 'dev'
-
-      - name: Set current Date
-        shell: bash
-        run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       
-  screenshot:
+  screenshots:
     name: Screenshot Reliability
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set current Date
+        shell: bash
+        run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
       - name: Snapshot Mainnet Reliability
         uses: swinton/screenshot-website@v1.x
         with:
@@ -34,8 +25,18 @@ jobs:
   upload:
     name: Upload Artifacts
     runs-on: ubuntu-latest
+    needs: [screenshots]
     
     steps:
+      - name: Set current Date
+        shell: bash
+        run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'dev'
+          
       - name: Create Snapshot Directory
         run: mkdir -p data/benchmarks/${{ env.NOW }}
         
