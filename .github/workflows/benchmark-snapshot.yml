@@ -1,0 +1,143 @@
+name: Benchmark Snapshot
+
+on: workflow_dispatch
+
+jobs:
+      
+  screenshots:
+    name: Screenshot Reliability
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set current Date
+        shell: bash
+        run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
+      - name: Snapshot Mainnet Reliability
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
+          destination: mainnet-reliability-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Testnet Reliability
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/reliability#networkId=16&timeframeId=8&sort=rank&sortDir=asc
+          destination: testnet-reliability-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Mainnet Performance
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/benchmarks#networkId=11&timeframeId=8&outliers=0
+          destination: mainnet-performance-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Testnet Performance
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/benchmarks#networkId=16&timeframeId=8&outliers=0
+          destination: testnet-performance-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
+          
+      - name: Snapshot Mainnet Validationcore
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://wax.validationcore.io/stats/guild
+          destination: mainnet-validationcore-${{ env.NOW }}.png
+          full-page: true
+          delay: 45
+          width: 1440
+          
+      - name: Snapshot Testnet Validationcore
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://wax-test.validationcore.io/stats/guild
+          destination: testnet-validationcore-${{ env.NOW }}.png
+          full-page: true
+          delay: 45
+          width: 1440
+
+  upload:
+    name: Commit Screenshots
+    runs-on: ubuntu-latest
+    needs: [screenshots]
+    
+    steps:
+      - name: Set current Date
+        shell: bash
+        run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'dev'
+          
+      - name: Create Snapshot Directory
+        run: mkdir -p data/benchmarks/${{ env.NOW }}
+
+      - name: Download mainnet-reliability artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: mainnet-reliability-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download testnet-reliability artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: testnet-reliability-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download mainnet-performance artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: mainnet-performance-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download testnet-performance artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: testnet-performance-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download mainnet-validationcore artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: mainnet-validationcore-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+          
+      - name: Download testnet-validationcore artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: testnet-validationcore-${{ env.NOW }}
+          path: data/benchmarks/${{ env.NOW }}
+        
+      - name: Git add Files
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Adding Snapshots ${{ env.NOW }}"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: 'Benchmark Snapshots ${{ env.NOW }}'
+          body: |
+            Update report
+            - Added Benchmark Snapshots
+        
+        
+    
+        
+    
+    
