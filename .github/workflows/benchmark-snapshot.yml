@@ -1,0 +1,21 @@
+name: Benchmark Snapshot
+
+on: workflow_dispatch
+
+jobs:
+  screenshot:
+    name: Screenshot Reliability
+    strategy:
+      matrix:
+        os: [macos-latest]
+        width: [1440]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+
+    - name: Benchmark Mainnet
+      uses: swinton/screenshot-website@v1.x
+      with:
+        source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
+        destination: benchmark-mainnet.png
+        full-page: true
