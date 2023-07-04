@@ -49,13 +49,15 @@ jobs:
       - name: Debug structure of downloaded files
         run: ls -R
         
-      - name: Add Snapshots to Repository
+      - name: Git add Files
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
           git commit -m "Adding Snapshots ${{ env.NOW }}"
-          git push
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
         
         
     
