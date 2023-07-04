@@ -3,38 +3,52 @@ name: Benchmark Snapshot
 on: workflow_dispatch
 
 jobs:
+  prepare:
+    name: Prepare Task
+    runs-on: ubuntu-latest
+    
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'dev'
+
+      - name: Set current Date
+        shell: bash
+        run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      
   screenshot:
     name: Screenshot Reliability
-    
     runs-on: ubuntu-latest
 
     steps:
-    
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        ref: 'dev'
-    
-    - name: Set current Date
-      shell: bash
-      run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: Snapshot Mainnet Reliability
+        uses: swinton/screenshot-website@v1.x
+        with:
+          source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
+          destination: mainnet-reliability-${{ env.NOW }}.png
+          full-page: true
+          delay: 20
+          width: 1440
 
-    - name: Snapshot Mainnet Reliability
-      uses: swinton/screenshot-website@v1.x
-      with:
-        source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
-        destination: mainnet-reliability-${{ env.NOW }}.png
-        full-page: true
-        delay: 20
-        width: 1440
+  upload:
+    name: Upload Artifacts
+    runs-on: ubuntu-latest
     
-    - name: Add Snapshots to Repository
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m "Adding Snapshots ${{ env.NOW }}"
-        git push
+    steps:
+      - name: Create Snapshot Directory
+        run: mkdir -p data/benchmarks/${{ env.NOW }}
+        
+      - name: Add Snapshots to Repository
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Adding Snapshots ${{ env.NOW }}"
+          git push
+        
+        
+    
         
     
     
