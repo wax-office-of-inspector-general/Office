@@ -55,7 +55,7 @@ jobs:
           source: https://wax.validationcore.io/stats/guild
           destination: mainnet-validationcore-${{ env.NOW }}.png
           full-page: true
-          delay: 20
+          delay: 45
           width: 1440
           
       - name: Snapshot Testnet Validationcore
@@ -64,7 +64,7 @@ jobs:
           source: https://wax-test.validationcore.io/stats/guild
           destination: testnet-validationcore-${{ env.NOW }}.png
           full-page: true
-          delay: 20
+          delay: 45
           width: 1440
 
   upload:
