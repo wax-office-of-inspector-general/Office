@@ -12,10 +12,15 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+    
+    - name: Get current Date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-    - name: Benchmark Mainnet
+    - name: Benchmark Mainnet Reliability
       uses: swinton/screenshot-website@v1.x
       with:
         source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
         destination: benchmark-mainnet.png
+        path: archive/benchmarks/${{ steps.date.outputs.date }}/
         full-page: true
