@@ -5,11 +5,8 @@ on: workflow_dispatch
 jobs:
   screenshot:
     name: Screenshot Reliability
-    strategy:
-      matrix:
-        os: [macos-latest]
-        width: [1440]
-    runs-on: ${{ matrix.os }}
+    
+    runs-on: ubuntu-latest
 
     steps:
     
@@ -24,6 +21,7 @@ jobs:
         destination: mainnet-reliability-${{ env.NOW }}.png
         full-page: true
         delay: 20
+        width: 1440
         
     
     
