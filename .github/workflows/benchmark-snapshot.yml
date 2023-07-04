@@ -21,6 +21,5 @@ jobs:
       uses: swinton/screenshot-website@v1.x
       with:
         source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
-        destination: benchmark-mainnet.png
-        path: archive/benchmarks/${{ steps.date.outputs.date }}/
+        destination: data/benchmarks/${{ steps.date.outputs.date }}/benchmark-mainnet.png
         full-page: true
