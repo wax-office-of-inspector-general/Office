@@ -13,13 +13,16 @@ jobs:
 
     steps:
     
-    - name: Get current Date
-      id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+    - name: Set current Date
+      shell: bash
+      run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-    - name: Benchmark Mainnet Reliability
+    - name: Snapshot Mainnet Reliability
       uses: swinton/screenshot-website@v1.x
       with:
         source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
-        destination: data/benchmarks/${{ steps.date.outputs.date }}/benchmark-mainnet.png
+        destination: mainnet-reliability-${{ env.NOW }}.png
         full-page: true
+        
+    
+    
