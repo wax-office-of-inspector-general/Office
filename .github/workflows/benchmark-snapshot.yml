@@ -132,6 +132,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           title: 'Benchmark Snapshots ${{ env.NOW }}'
+          commit-message: 'Add Benchmark Snapshots ${{ env.NOW }}'
           body: |
             Update report
             - Added Benchmark Snapshots
