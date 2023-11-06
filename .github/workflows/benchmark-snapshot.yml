@@ -16,7 +16,7 @@ jobs:
       - name: Snapshot Mainnet Reliability
         uses: swinton/screenshot-website@v1.x
         with:
-          source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=8&sort=rank&sortDir=asc
+          source: https://www.alohaeos.com/tools/reliability#networkId=11&timeframeId=7&sort=rank&sortDir=asc
           destination: mainnet-reliability-${{ env.NOW }}.png
           full-page: true
           delay: 20
@@ -25,7 +25,7 @@ jobs:
       - name: Snapshot Testnet Reliability
         uses: swinton/screenshot-website@v1.x
         with:
-          source: https://www.alohaeos.com/tools/reliability#networkId=16&timeframeId=8&sort=rank&sortDir=asc
+          source: https://www.alohaeos.com/tools/reliability#networkId=16&timeframeId=7&sort=rank&sortDir=asc
           destination: testnet-reliability-${{ env.NOW }}.png
           full-page: true
           delay: 20
@@ -34,7 +34,7 @@ jobs:
       - name: Snapshot Mainnet Performance
         uses: swinton/screenshot-website@v1.x
         with:
-          source: https://www.alohaeos.com/tools/benchmarks#networkId=11&timeframeId=8&outliers=0
+          source: https://www.alohaeos.com/tools/benchmarks#networkId=11&timeframeId=7&outliers=0
           destination: mainnet-performance-${{ env.NOW }}.png
           full-page: true
           delay: 20
@@ -43,7 +43,7 @@ jobs:
       - name: Snapshot Testnet Performance
         uses: swinton/screenshot-website@v1.x
         with:
-          source: https://www.alohaeos.com/tools/benchmarks#networkId=16&timeframeId=8&outliers=0
+          source: https://www.alohaeos.com/tools/benchmarks#networkId=16&timeframeId=7v&outliers=0
           destination: testnet-performance-${{ env.NOW }}.png
           full-page: true
           delay: 20
@@ -52,7 +52,7 @@ jobs:
       - name: Snapshot Mainnet Validationcore
         uses: swinton/screenshot-website@v1.x
         with:
-          source: https://wax.validationcore.io/stats/guild
+          source: https://wax.validationcore.io/stats/guild?start=2023-10-23&end=2023-11-06
           destination: mainnet-validationcore-${{ env.NOW }}.png
           full-page: true
           delay: 45
@@ -61,7 +61,7 @@ jobs:
       - name: Snapshot Testnet Validationcore
         uses: swinton/screenshot-website@v1.x
         with:
-          source: https://wax-test.validationcore.io/stats/guild
+          source: https://wax-test.validationcore.io/stats/guild?start=2023-10-23&end=2023-11-06
           destination: testnet-validationcore-${{ env.NOW }}.png
           full-page: true
           delay: 45
