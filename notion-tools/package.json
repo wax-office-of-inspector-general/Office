@@ -1,0 +1,24 @@
+{
+  "name": "notion-tools",
+  "version": "0.0.1",
+  "description": "tool to fetch scores from notion database",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production && node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wax-office-of-inspector-general/office.git"
+  },
+  "author": "rakeden",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/wax-office-of-inspector-general/office/issues"
+  },
+  "homepage": "https://github.com/wax-office-of-inspector-general/office#readme",
+  "devDependencies": {
+    "@notionhq/client": "^2.2.14",
+    "dotenv": "^16.4.5"
+  }
+}
