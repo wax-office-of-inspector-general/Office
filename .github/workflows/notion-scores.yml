@@ -1,4 +1,4 @@
-name: Guild Lottery
+name: Notion Scores
 
 on: workflow_dispatch
 
