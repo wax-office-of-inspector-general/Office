@@ -1,9 +1,9 @@
 require("dotenv").config();
 const { Client } = require("@notionhq/client");
 
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
-
 console.log(process.env.NOTION_API_KEY);
+
+const notion = new Client({ auth: process.env.NOTION_API_KEY });
 
 (async () => {
   const databaseId = "aec8e648244c4b42a19d172f9fe9f1aa";
