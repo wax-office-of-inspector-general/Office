@@ -20,5 +20,8 @@
   "devDependencies": {
     "@notionhq/client": "^2.2.14",
     "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "eosjs": "^22.1.0"
   }
 }
