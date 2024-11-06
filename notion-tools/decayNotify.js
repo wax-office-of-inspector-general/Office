@@ -59,14 +59,30 @@ const groupIssues = (products, guilds) => {
 
 const createIssueContent = (issues) => {
   const markdown = Object.keys(issues).map(guild => {
-    const guildURL = issues[guild][0].guildURL; // Guild URL from the issue object
-    return `### [${guild}](${guildURL})\n\n${issues[guild].map(issue => {
-      return `**[${issue.title}](${issue.url})** - ${issue.decay}\n\n`;
-    }).join('')}`;
+    const guildName = guild;
+    const guildURL = issues[guild][0].guildURL;
+
+    // Start the guild section with a header
+    let content = `### [${guildName}](${guildURL})\n\n`;
+
+    // Table header
+    content += '| Contribution | Decay Date |\n';
+    content += '|--------------|------------|\n';
+
+    // Table rows
+    issues[guild].forEach(issue => {
+      const issueTitle = issue.title;
+      const issueURL = issue.url;
+      const decayDate = issue.decay;
+
+      content += `| [${issueTitle}](${issueURL}) | ${decayDate} |\n`;
+    });
+
+    return content;
   });
 
   return {
-    title: "Decay Notifications for Guilds - " + new Date().toISOString(),
+    title: 'Decay Notifications for Guilds - ' + new Date().toISOString(),
     content: markdown.join('\n\n'),
   };
 };
