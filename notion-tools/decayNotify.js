@@ -1,9 +1,8 @@
-const { fetchContributions } = require('./util/fetchContributions');
-const { fetchGuilds } = require('./util/fetchGuilds');
+import { fetchContributions } from './util/fetchContributions.js';
+import { fetchGuilds } from './util/fetchGuilds.js';
+import { Octokit } from "@octokit/rest";
 
-const { Octokit } = require("@octokit/rest");
-
-async function run() {
+const run = async () => {
   try {
     const contributions = await fetchContributions();
     const guilds = await fetchGuilds();
@@ -18,7 +17,7 @@ async function run() {
   } catch (error) {
     console.error("Error fetching contributions:", error);
   }
-}
+};
 
 const checkDecays = (contributions) => {
   const today = new Date();
@@ -27,13 +26,11 @@ const checkDecays = (contributions) => {
   return contributions.filter(contribution => {
     return new Date(contribution.properties["Decay Date"].date.start) < nextWeek;
   });
-}
+};
 
 const groupIssues = (products, guilds) => {
-
   const issues = products.map((product) => {
-    if(!product.properties.Guild.relation.length)
-      return false;
+    if (!product.properties.Guild.relation.length) return false;
 
     return {
       id: product.id,
@@ -46,9 +43,9 @@ const groupIssues = (products, guilds) => {
   });
 
   const groupByGuild = issues.reduce((acc, issue) => {
-    if(!issue) return acc;
+    if (!issue) return acc;
 
-    if(!acc[issue.guild]) {
+    if (!acc[issue.guild]) {
       acc[issue.guild] = [];
     }
 
@@ -58,11 +55,12 @@ const groupIssues = (products, guilds) => {
   }, {});
 
   return groupByGuild;
-}
+};
 
-createIssueContent = (issues) => {
-  const markdown = Object.keys(groupByGuild).map(guild => {
-    return `### ${guild}\n\n${groupByGuild[guild].map(issue => {
+const createIssueContent = (issues) => {
+  const markdown = Object.keys(issues).map(guild => {
+    const guildURL = issues[guild][0].guildURL; // Guild URL from the issue object
+    return `### [${guild}](${guildURL})\n\n${issues[guild].map(issue => {
       return `**[${issue.title}](${issue.url})** - ${issue.decay}\n\n`;
     }).join('')}`;
   });
@@ -70,20 +68,20 @@ createIssueContent = (issues) => {
   return {
     title: "Decay Notifications for Guilds - " + new Date().toISOString(),
     content: markdown.join('\n\n'),
-  }
-}
+  };
+};
 
-createIssue = (issueContent) => {
+const createIssue = (issueContent) => {
   const octokit = new Octokit({
     auth: process.env.GITHUB_TOKEN,
   });
 
   octokit.issues.create({
-    owner: "rakeden",
-    repo: "wax-office-of-inspector-general",
+    owner: "wax-office-of-inspector-general",
+    repo: "office",
     title: issueContent.title,
     body: issueContent.content,
   });
-}
+};
 
 run();

@@ -1,10 +1,8 @@
-const { fetchGuilds } = require('./util/fetchGuilds');
+import { fetchGuilds } from './util/fetchGuilds';
 
 async function run() {
   try {
     const guilds = await fetchGuilds();
-
-    console.log(guilds)
 
     const guildsSorted = guilds.map((res) => {
       return {

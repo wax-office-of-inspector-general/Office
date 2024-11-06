@@ -1,7 +1,7 @@
-const { createNotionClient } = require('./useNotion');
+import { createNotionClient } from './useNotion.js';
 const DATABASE_ID = "b13a262bd3ea480db01b3127535e496b";
 
-async function fetchContributions(limit = 50) {
+export async function fetchContributions(limit = 50) {
   try {
     const response = await createNotionClient().databases.query({
       database_id: DATABASE_ID,
@@ -24,5 +24,3 @@ async function fetchContributions(limit = 50) {
     throw error;
   }
 }
-
-exports.fetchContributions = fetchContributions;
