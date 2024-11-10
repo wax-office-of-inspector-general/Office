@@ -1,4 +1,4 @@
-import { fetchGuilds } from './util/fetchGuilds';
+import { fetchGuilds } from './util/fetchGuilds.js';
 
 async function run() {
   try {
