@@ -7,6 +7,7 @@
   "scripts": {
     "start": "NODE_ENV=production && node index.js",
     "start:scores": "NODE_ENV=production && node guildScores.js",
+    "start:backupscores": "NODE_ENV=production && node backupScores.js",
     "start:decays": "NODE_ENV=production && node decayNotify.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
